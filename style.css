@@ -24,7 +24,7 @@
 
 body {
     font-family: var(--fonte);
-    background-color: rgb(100, 100, 100);
+    background-color: rgba(142, 255, 56, 0.931);
     color: var(--cor-texto);
     min-height: 100dvh;
     display: flex;
