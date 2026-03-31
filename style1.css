@@ -1,11 +1,10 @@
-/* RESET */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* BODY */
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #0d0d0d;
@@ -13,7 +12,6 @@ body {
     line-height: 1.6;
 }
 
-/* HEADER */
 header {
     background: linear-gradient(135deg, #1a1a1a, #333);
     padding: 20px;
@@ -30,7 +28,6 @@ header p {
     margin: 10px 0;
 }
 
-/* NAV */
 nav ul {
     list-style: none;
     margin-top: 15px;
@@ -52,14 +49,12 @@ nav a:hover {
     color: #ffffff;
 }
 
-/* MAIN */
 main {
     max-width: 900px;
     margin: 20px auto;
     padding: 20px;
 }
 
-/* SECTIONS */
 section {
     margin-bottom: 40px;
     padding: 20px;
@@ -68,7 +63,6 @@ section {
     box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
 }
 
-/* TITLES */
 h2 {
     color: #00ffcc;
     margin-bottom: 10px;
@@ -79,13 +73,11 @@ h3 {
     color: #cccccc;
 }
 
-/* LISTAS */
 ul, ol {
     margin-left: 20px;
     margin-top: 10px;
 }
 
-/* BLOCKQUOTE */
 blockquote {
     margin: 15px 0;
     padding: 10px;
@@ -94,7 +86,6 @@ blockquote {
     font-style: italic;
 }
 
-/* TABELA */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -121,7 +112,6 @@ tr:nth-child(even) {
     background-color: #2a2a2a;
 }
 
-/* GALERIA */
 figure {
     margin: 20px 0;
     text-align: center;
@@ -143,7 +133,6 @@ figcaption {
     color: #ccc;
 }
 
-/* LINKS */
 a {
     color: #00ffcc;
     display: inline-block;
@@ -154,7 +143,6 @@ a:hover {
     color: #fff;
 }
 
-/* BOTÃO VOLTAR */
 a[href="#topo"] {
     display: block;
     margin-top: 30px;
@@ -162,7 +150,6 @@ a[href="#topo"] {
     font-weight: bold;
 }
 
-/* FOOTER */
 footer {
     text-align: center;
     padding: 20px;
@@ -174,7 +161,6 @@ footer a {
     color: #00ffcc;
 }
 
-/* RESPONSIVO */
 @media (max-width: 600px) {
     nav ul li {
         display: block;
