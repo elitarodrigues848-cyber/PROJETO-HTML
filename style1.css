@@ -1,27 +1,37 @@
 /*Trabalho certo */
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --cor-fundo: #0d0d0d;
+    --cor-primaria: #00ffcc;
+    --cor-fundo-secundario: #1a1a1a;
+    --cor-texto: #eaeaea;
+    --cor-texto-secundario: #ccc;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #0d0d0d;
-    color: #eaeaea;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
     line-height: 1.6;
 }
 
 header {
-    background: linear-gradient(135deg, #1a1a1a, #333);
+    background: linear-gradient(120deg, #1a1a1a, #333);
     padding: 20px;
     text-align: center;
-    border-bottom: 2px solid #00ffcc;
+    border-bottom: 2px solid var(--cor-primaria);
 }
 
 header h1 {
     font-size: 2.5rem;
-    color: #00ffcc;
+    color: var(--cor-primaria);
 }
 
 header p {
@@ -39,14 +49,14 @@ nav ul li {
 }
 
 nav a {
-    color: #00ffcc;
+    color: var(--cor-primaria);
     text-decoration: none;
     font-weight: bold;
     transition: 0.3s;
 }
 
 nav a:hover {
-    color: #ffffff;
+    color: var(--cor-texto);
 }
 
 main {
@@ -58,22 +68,23 @@ main {
 section {
     margin-bottom: 40px;
     padding: 20px;
-    background-color: #1a1a1a;
+    background-color: var(--cor-fundo-secundario);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
 }
 
 h2 {
-    color: #00ffcc;
+    color: var(--cor-primaria);
     margin-bottom: 10px;
 }
 
 h3 {
     margin-top: 15px;
-    color: #cccccc;
+    color: var(--cor-texto-secundario);
 }
 
-ul, ol {
+ul,
+ol {
     margin-left: 20px;
     margin-top: 10px;
 }
@@ -81,8 +92,8 @@ ul, ol {
 blockquote {
     margin: 15px 0;
     padding: 10px;
-    border-left: 4px solid #00ffcc;
-    background-color: #262626;
+    border-left: 4px solid var(--cor-primaria);
+    background-color: var(--cor-fundo-secundario);
     font-style: italic;
 }
 
@@ -97,19 +108,20 @@ caption {
     font-weight: bold;
 }
 
-th, td {
+th,
+td {
     border: 1px solid #444;
     padding: 10px;
     text-align: center;
 }
 
 th {
-    background-color: #00ffcc;
+    background-color: var(--cor-primaria);
     color: #000;
 }
 
 tr:nth-child(even) {
-    background-color: #2a2a2a;
+    background-color: var(--cor-fundo-secundario);
 }
 
 figure {
@@ -134,13 +146,13 @@ figcaption {
 }
 
 a {
-    color: #00ffcc;
+    color: var(--cor-primaria);
     display: inline-block;
     margin-top: 10px;
 }
 
 a:hover {
-    color: #fff;
+    color: var(--cor-texto);
 }
 
 a[href="#topo"] {
@@ -154,11 +166,11 @@ footer {
     text-align: center;
     padding: 20px;
     background-color: #111;
-    border-top: 2px solid #00ffcc;
+    border-top: 2px solid var(--cor-primaria);
 }
 
 footer a {
-    color: #00ffcc;
+    color: var(--cor-primaria);
 }
 
 @media (max-width: 600px) {
