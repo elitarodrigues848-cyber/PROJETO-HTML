@@ -1,0 +1,19 @@
+2.4- ~800px de largura:
+Aparecem 4 colunas.
+~400px de largura:
+Aparecem 2 colunas.
+Quando não há largura suficiente nem para 160px:
+Fica só 1 coluna, e os itens ocupam toda a largura.
+
+3.4-justify-items e align-items mexem com todos os itens dentro do container. Já o justify-self e o align-self servem pra ajustar só um item específico, sem mexer nos outros.
+
+4.4-A gente muda o grid-template-areas porque no mobile o layout vira uma coluna só e a ordem das coisas precisa mudar. Se mudasse só as colunas, os elementos não ficariam organizados do jeito certo, então é preciso redefinir as áreas também.
+
+1-O -1 é tipo a última linha do grid. É melhor usar ele porque se mudar a quantidade de colunas depois, não precisa ficar alterando o código.
+
+2-O auto-fill cria várias colunas mesmo que algumas fiquem vazias. Já o auto-fit tenta ocupar todo o espaço, aumentando o tamanho das colunas quando sobra espaço. A diferença aparece quando tem espaço sobrando.
+
+3-O grid não aceita área em formato estranho tipo L. Aí o navegador meio que ignora isso e não funciona direito.
+
+4-Os nomes não estão iguais entre o grid-template-areas e o grid-area.
+

@@ -1,0 +1,108 @@
+/* 1.1 — Crie o arquivo estilo.css com o reset base*/
+* {
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+}
+body {
+ font-family: Arial, sans-serif;
+ background-color: #f4f4f4;
+}
+
+
+/* 1.2 — Ative o Grid na .pagina */
+.pagina {
+ display: grid; /* ativa o grid */
+ grid-template-columns: 2fr 1fr; /* 2/3 + 1/3 */
+ grid-template-rows: auto 1fr auto;
+ grid-template-areas:
+ "topo topo" /* linha 1: topo ocupa tudo */
+ "destaque novidades" /* linha 2: destaque | novidades */
+ "categorias categorias" /* linha 3: categorias ocupa tudo */
+ "rodape rodape"; /* linha 4: rodape ocupa tudo */
+ min-height: 100vh;
+ gap: 12px;
+ padding: 12px;
+}
+
+/* 1.3 — Atribua cada filho a sua area*/
+.topo { grid-area: topo; }
+.destaque { grid-area: destaque; }
+.novidades { grid-area: novidades; }
+.categorias { grid-area: categorias;
+}
+.rodape { grid-area: rodape; }
+
+/*1.4 — Adicione cores para visualizar a grade*/
+.topo { background-color: #003366; color: #FFCC00; padding: 20px; }
+.destaque { background-color: #00509e; color: #fff; padding: 20px; }
+.novidades { background-color: #1565C0; color: #fff; padding: 20px; }
+.categorias { background-color: #e8edf2; padding: 20px; }
+.rodape { background-color: #1A1A2E; color: #ccc; padding: 16px;}
+
+.categorias {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+ gap: 12px;
+ padding: 20px;
+ background-color: #e8edf2;
+}
+
+.card-cat {
+ background-color: #003366;
+ color: #FFCC00;
+ font-weight: bold;
+ text-align: center;
+ padding: 24px 12px;
+ border-radius: 6px;
+ font-size: 0.95rem;
+}
+
+.card-cat:first-child{
+    grid-column: span 2;
+}
+
+.topo {
+ /* mantenha o que ja existe e acrescente: */
+ display: grid; /* transforma o topo em um grid interno */
+ place-items: center; /* centraliza em ambos os eixos */
+ text-align: center;
+ min-height: 100px;
+}
+.rodape {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+}
+.destaque {
+ /* mantenha o que ja existe e acrescente: */
+ display: grid;
+ align-items: start; /* vertical: inicio */
+ justify-items: center; /* horizontal: centro */
+}
+.destaque .preco {
+ font-size: 1.5rem;
+ font-weight: bold;
+ color: #FFCC00; /* use a cor amarela do wireframe: #FFCC00 */
+ margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+ .pagina {
+ grid-template-columns: 1fr; /* uma coluna unica */
+ grid-template-areas:
+ "topo" /* topo */
+ "destaque" /* destaque */
+ "novidades" /* novidades */
+ "categorias" /* categorias */
+ "rodape"; /* rodape */
+ }
+ /* Ajuste os cards de categoria para mobile */
+ .categorias {
+ grid-template-columns: repeat(2, minmax(150px, 1fr));
+ }
+ /* Desfaca o span 2 do primeiro card em telas pequenas */
+ .card-cat:first-child {
+ grid-column: auto;
+ }
+}
