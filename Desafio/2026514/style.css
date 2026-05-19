@@ -1,0 +1,19 @@
+h1 {
+    font-size: .75rem;
+    font-weight: bold;
+    color: rgb(0, 0, 48);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+} 
+
+#mensagem {
+    background: #fff;
+    border: 1.5px solid #aab4c2;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Consolas', monospace;
+    color: #222;
+    min-height: 36px;
+    line-height: 1.6;
+}
