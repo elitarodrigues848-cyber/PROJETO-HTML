@@ -1,0 +1,577 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Compras</title>
+
+<style>
+:root {
+  --azul:#003366;
+  --amarelo:#FFCC00;
+  --bg:#f2f4f8;
+  --surface:#ffffff;
+  --borda:#dce1ea;
+  --texto:#1e2535;
+  --muted:#6b7590;
+  --verde:#1a7f4b;
+  --perigo:#c0392b;
+}
+
+*, *::before, *::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:"Segoe UI",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--texto);
+  min-height:100vh;
+  padding:clamp(16px,4vw,48px);
+}
+
+.cabecalho{
+  background:var(--azul);
+  color:#fff;
+  border-radius:16px;
+  padding:24px 32px;
+  margin-bottom:28px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.badge{
+  background:var(--amarelo);
+  color:var(--azul);
+  font-weight:900;
+  font-size:.8rem;
+  padding:6px 14px;
+  border-radius:6px;
+}
+
+.cabecalho p{
+  opacity:.75;
+  margin-top:4px;
+}
+
+.grid-app{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:24px;
+}
+
+.card{
+  background:var(--surface);
+  border-radius:16px;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+  padding:24px;
+}
+
+.titulo-card{
+  color:var(--azul);
+  border-left:4px solid var(--amarelo);
+  padding-left:10px;
+  margin-bottom:16px;
+}
+
+.grid-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.stat-box{
+  background:#f4f6fb;
+  border-radius:10px;
+  padding:14px 10px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.numero{
+  font-size:1.8rem;
+  font-weight:800;
+  color:var(--azul);
+}
+
+.rotulo{
+  font-size:.72rem;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+
+.destaque .numero{
+  color:var(--verde);
+}
+
+.secao-progresso{
+  margin-bottom:20px;
+}
+
+.cabec-progresso{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+  color:var(--muted);
+}
+
+.trilha-progresso{
+  width:100%;
+  height:14px;
+  background:#e4e8f0;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.preenchimento{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#003366,#0055aa);
+  transition:.5s;
+}
+
+.preenchimento.concluido{
+  background:linear-gradient(90deg,#1a7f4b,#22a060);
+}
+
+.form-adicao{
+  display:flex;
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.form-adicao input{
+  flex:1;
+  padding:10px 14px;
+  border:2px solid var(--borda);
+  border-radius:6px;
+  outline:none;
+}
+
+.form-adicao input:focus{
+  border-color:var(--azul);
+}
+
+.btn{
+  padding:10px 18px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.btn-primario{
+  background:var(--azul);
+  color:white;
+}
+
+.btn-perigo{
+  background:transparent;
+  border:1px solid var(--perigo);
+  color:var(--perigo);
+  padding:5px 10px;
+}
+
+.btn-limpar{
+  width:100%;
+  margin-top:12px;
+  border:1px solid var(--borda);
+  background:transparent;
+}
+
+.filtros{
+  display:flex;
+  gap:6px;
+  margin-bottom:14px;
+  flex-wrap:wrap;
+}
+
+.btn-filtro{
+  padding:5px 14px;
+  border:1px solid var(--borda);
+  border-radius:99px;
+  background:white;
+  cursor:pointer;
+}
+
+.btn-filtro.ativo{
+  background:var(--azul);
+  color:white;
+}
+
+.lista-itens{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  max-height:360px;
+  overflow-y:auto;
+}
+
+.msg-vazia{
+  text-align:center;
+  color:var(--muted);
+  padding:28px 0;
+}
+
+.item-linha{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border:1px solid var(--borda);
+  border-radius:6px;
+}
+
+.item-linha.marcado{
+  background:#f0faf4;
+  border-color:#a8dfc0;
+}
+
+.item-rotulo{
+  flex:1;
+}
+
+.item-linha.marcado .item-rotulo{
+  text-decoration:line-through;
+  color:var(--muted);
+}
+
+.toast{
+  position:fixed;
+  bottom:28px;
+  left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:var(--azul);
+  color:white;
+  padding:10px 24px;
+  border-radius:99px;
+  opacity:0;
+  transition:.3s;
+}
+
+.toast.visivel{
+  transform:translateX(-50%) translateY(0);
+  opacity:1;
+}
+</style>
+</head>
+
+<body>
+
+<header class="cabecalho">
+  <span class="badge">IBMEC BH</span>
+  <div>
+    <h1>Lista de Compras</h1>
+    <p>querySelector · localStorage · CSS Grid · Progresso</p>
+  </div>
+</header>
+
+<main class="grid-app">
+
+<section class="card">
+
+<h2 class="titulo-card">Minha Lista de Compras</h2>
+
+<div class="secao-progresso">
+  <div class="cabec-progresso">
+    <span>Progresso</span>
+    <strong id="label-progresso">0 de 0 itens</strong>
+  </div>
+
+  <div class="trilha-progresso">
+    <div class="preenchimento" id="barra-progresso"></div>
+  </div>
+</div>
+
+<form id="form-adicao" class="form-adicao">
+  <input
+    type="text"
+    id="input-item"
+    placeholder="Ex.: Arroz, Feijão, Leite..."
+    maxlength="60"
+    required
+  >
+  <button type="submit" class="btn btn-primario">
+    Adicionar
+  </button>
+</form>
+
+<div class="filtros">
+  <button class="btn-filtro ativo" data-filtro="todos">Todos</button>
+  <button class="btn-filtro" data-filtro="pendentes">Pendentes</button>
+  <button class="btn-filtro" data-filtro="comprados">Comprados</button>
+</div>
+
+<ul id="lista-itens" class="lista-itens">
+  <li id="msg-vazia" class="msg-vazia">
+    Nenhum item adicionado ainda.
+  </li>
+</ul>
+
+<button id="btn-limpar" class="btn btn-limpar">
+  Limpar lista completa
+</button>
+
+</section>
+
+<section class="card">
+
+<h2 class="titulo-card">Resumo</h2>
+
+<div class="grid-stats">
+
+<div class="stat-box">
+  <span class="numero" id="stat-total">0</span>
+  <span class="rotulo">Total</span>
+</div>
+
+<div class="stat-box">
+  <span class="numero" id="stat-pendentes">0</span>
+  <span class="rotulo">Pendentes</span>
+</div>
+
+<div class="stat-box destaque">
+  <span class="numero" id="stat-comprados">0</span>
+  <span class="rotulo">Comprados</span>
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script>
+
+const form = document.querySelector('#form-adicao');
+const inputEl = document.querySelector('#input-item');
+const listaEl = document.querySelector('#lista-itens');
+const msgVazia = document.querySelector('#msg-vazia');
+const barra = document.querySelector('#barra-progresso');
+const labelProg = document.querySelector('#label-progresso');
+const btnLimpar = document.querySelector('#btn-limpar');
+
+const statTotal = document.querySelector('#stat-total');
+const statPend = document.querySelector('#stat-pendentes');
+const statComp = document.querySelector('#stat-comprados');
+
+const toastEl = document.querySelector('#toast');
+
+const CHAVE = 'lista_compras';
+
+let itens = carregarStorage();
+let filtro = 'todos';
+
+function carregarStorage() {
+  const salvo = localStorage.getItem(CHAVE);
+  return salvo ? JSON.parse(salvo) : [];
+}
+
+function salvarStorage() {
+  localStorage.setItem(CHAVE, JSON.stringify(itens));
+}
+
+function atualizarProgresso() {
+
+  const total = itens.length;
+  const feitos = itens.filter(i => i.checked).length;
+
+  const pct =
+    total === 0 ? 0 :
+    Math.round((feitos / total) * 100);
+
+  barra.style.width = pct + '%';
+
+  barra.classList.toggle(
+    'concluido',
+    pct === 100 && total > 0
+  );
+
+  labelProg.textContent =
+    `${feitos} de ${total} itens`;
+
+  statTotal.textContent = total;
+  statPend.textContent = total - feitos;
+  statComp.textContent = feitos;
+}
+
+function renderizar() {
+
+  listaEl.querySelectorAll('.item-linha')
+    .forEach(el => el.remove());
+
+  const filtrados = itens.filter(item => {
+
+    if (filtro === 'pendentes')
+      return !item.checked;
+
+    if (filtro === 'comprados')
+      return item.checked;
+
+    return true;
+  });
+
+  msgVazia.style.display =
+    filtrados.length === 0
+    ? 'block'
+    : 'none';
+
+  filtrados.forEach(item => {
+
+    const li = document.createElement('li');
+    li.className =
+      'item-linha' +
+      (item.checked ? ' marcado' : '');
+
+    li.dataset.id = item.id;
+
+    li.innerHTML = `
+      <input type="checkbox"
+             ${item.checked ? 'checked' : ''}>
+      <span class="item-rotulo">
+        ${item.nome}
+      </span>
+      <button class="btn-perigo">
+        Remover
+      </button>
+    `;
+
+    listaEl.appendChild(li);
+  });
+
+  atualizarProgresso();
+}
+
+let timerToast;
+
+function mostrarToast(msg){
+  toastEl.textContent = msg;
+  toastEl.classList.add('visivel');
+
+  clearTimeout(timerToast);
+
+  timerToast = setTimeout(()=>{
+    toastEl.classList.remove('visivel');
+  },2200);
+}
+
+form.addEventListener('submit', e => {
+
+  e.preventDefault();
+
+  const nome = inputEl.value.trim();
+
+  if(!nome){
+    inputEl.focus();
+    return;
+  }
+
+  itens.push({
+    id: Date.now(),
+    nome,
+    checked:false
+  });
+
+  salvarStorage();
+  renderizar();
+
+  mostrarToast(`"${nome}" adicionado!`);
+
+  inputEl.value='';
+  inputEl.focus();
+});
+
+listaEl.addEventListener('change', e => {
+
+  if(e.target.type !== 'checkbox')
+    return;
+
+  const id = Number(
+    e.target.closest('.item-linha')
+    .dataset.id
+  );
+
+  const item =
+    itens.find(i => i.id === id);
+
+  if(!item) return;
+
+  item.checked = e.target.checked;
+
+  salvarStorage();
+  renderizar();
+
+  if(item.checked){
+    mostrarToast(`"${item.nome}" comprado!`);
+  }
+});
+
+listaEl.addEventListener('click', e => {
+
+  if(!e.target.classList.contains('btn-perigo'))
+    return;
+
+  const id = Number(
+    e.target.closest('.item-linha')
+    .dataset.id
+  );
+
+  itens = itens.filter(i => i.id !== id);
+
+  salvarStorage();
+  renderizar();
+
+  mostrarToast('Item removido!');
+});
+
+btnLimpar.addEventListener('click', () => {
+
+  if(itens.length === 0) return;
+
+  if(!confirm('Deseja apagar todos os itens?'))
+    return;
+
+  itens = [];
+
+  salvarStorage();
+  renderizar();
+
+  mostrarToast('Lista limpa!');
+});
+
+const btnsFiltro =
+  document.querySelectorAll('.btn-filtro');
+
+btnsFiltro.forEach(btn => {
+
+  btn.addEventListener('click', function(){
+
+    btnsFiltro.forEach(b =>
+      b.classList.remove('ativo')
+    );
+
+    this.classList.add('ativo');
+
+    filtro = this.dataset.filtro;
+
+    renderizar();
+  });
+
+});
+
+renderizar();
+
+</script>
+
+</body>
+</html>
