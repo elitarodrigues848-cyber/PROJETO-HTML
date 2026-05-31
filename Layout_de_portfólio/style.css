@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.pagina {
+    min-height: 100vh;
+
+    display: grid;
+
+    grid-template-areas:
+        "header"
+        "main"
+        "footer";
+
+    grid-template-rows: auto 1fr auto;
+}
+
+header {
+    grid-area: header;
+
+    display: grid;
+
+    place-items: center;
+
+    padding: 30px;
+
+    background-color: #ffcc00;
+    color: #003366;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+main {
+    grid-area: main;
+
+    padding: 20px;
+}
+
+.projetos {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(220px, 1fr));
+
+    gap: 16px;
+}
+
+.card {
+    padding: 20px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    background-color: #f4f4f4;
+}
+
+.destaque {
+    grid-column: span 2;
+
+    background-color: #e5e5e5;
+}
+
+footer {
+    grid-area: footer;
+
+    text-align: center;
+
+    padding: 20px;
+
+    background-color: #ffcc00;
+
+    color: #003366;
+}
+
+/* BÔNUS */
+
+@media (max-width: 600px) {
+
+    .pagina {
+        grid-template-areas:
+            "header header"
+            "main main"
+            "footer footer";
+
+        grid-template-columns: 1fr;
+    }
+
+    .destaque {
+        grid-column: span 1;
+    }
+}
