@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cor-fundo: #0d0d0d;
+            --cor-primaria: #00ffcc;
+            --cor-fundo-secundario: #1a1a1a;
+            --cor-texto: #f01313;
+            --cor-texto-secundario: #ccc;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            background-color: rgb(41, 30, 255);
+            padding: 10px;
+        }
+
+        .container div {
+            background-color: #f1f1f1;
+            border: 1px solid black;
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+        }
+        p{
+          color: var(--cor-texto);
+        
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Grid Layout</h1>
+
+    <p>A Grid Layout must have a parent element with the <em>display</em> property set to <em>grid</em> or
+        <em>inline-grid</em>.
+    </p>
+
+    <p>Direct child element(s) of the grid container automatically becomes grid items.</p>
+
+    <div class="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </div>
+
+</body>
+
+</html>

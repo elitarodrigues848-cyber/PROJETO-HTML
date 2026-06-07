@@ -1,0 +1,24 @@
+<!-- No <head>, com o atributo defer -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Minha página</title>
+  <link rel="stylesheet" href="estilo.css">
+
+  <!-- Script linkado com defer ✅ -->
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <h1>Olá, mundo!</h1>
+  <button onclick="alert('você apertou o botão teste');">Teste</button>
+  <script>
+    function mensagem(){
+      console.log('Apertou o botão');
+      alert('você apertou o botão teste');
+    }
+  </script>
+    
+  
+</body>
+</html>
